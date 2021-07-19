@@ -1,22 +1,5 @@
-import { ArgsType, Field } from '@nestjs/graphql';
-import { IsBoolean, IsString, Length } from 'class-validator';
+import { Restaurant } from './../restaurants/entities/restaurant.entity';
+import {InputType, OmitType } from '@nestjs/graphql';
 
-@ArgsType()
-export class createRestaurantDto {
-  @Field((type) => String)
-  @IsString()
-  @Length(5, 10)
-  name: string;
-
-  @Field((type) => Boolean)
-  @IsBoolean()
-  veganOnly: boolean;
-
-  @Field((type) => String)
-  @IsString()
-  address: string;
-
-  @Field((type) => String)
-  @IsString()
-  ownerName: string;
-}
+@InputType()
+export class createRestaurantDto extends OmitType(Restaurant, ["id"], InputType){}
