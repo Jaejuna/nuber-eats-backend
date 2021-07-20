@@ -7,33 +7,35 @@ import { UpdateRestaurantDto } from 'src/dtos/update-restaurant.dto';
 @Resolver((of) => Restaurant)
 export class RestaurantsResolver {
   constructor(private readonly RestaurantService: RestaurantService) {}
-  
+
   @Query((returns) => [Restaurant])
   restaurants(): Promise<Restaurant[]> {
     return this.RestaurantService.getAll();
   }
-  
+
   @Mutation((returns) => Boolean)
-  async createRestaurant(@Args('input') createRestaurantDto: createRestaurantDto): Promise<boolean> {
-    try{
+  async createRestaurant(
+    @Args('input') createRestaurantDto: createRestaurantDto,
+  ): Promise<boolean> {
+    try {
       await this.RestaurantService.createRestaurant(createRestaurantDto);
       return true;
-    }catch(e){
+    } catch (e) {
       console.log(e);
       return false;
     }
   }
 
-  @Mutation(returns => Boolean)
+  @Mutation((returns) => Boolean)
   async updateRestaurant(
-    @Args('input') updateRestaurantDto: UpdateRestaurantDto
-    ): Promise<boolean> {
-      try {
-        await this.RestaurantService.updateRestaurant(updateRestaurantDto);
-        return true;
-      } catch (e) {
-        console.log(e);
-        return false;
-      }
+    @Args('input') updateRestaurantDto: UpdateRestaurantDto,
+  ): Promise<boolean> {
+    try {
+      await this.RestaurantService.updateRestaurant(updateRestaurantDto);
+      return true;
+    } catch (e) {
+      console.log(e);
+      return false;
+    }
   }
 }
