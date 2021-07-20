@@ -1,3 +1,4 @@
+import { UsersModule } from './users/users.module';
 import { User } from './users/entities/user.entity';
 import { Module } from '@nestjs/common';
 import * as Joi from 'joi';
@@ -37,6 +38,7 @@ import { CommonModule } from './common/common.module';
       logging: process.env.NODE_ENV !== 'prod',
       entities: [User]
     }),
+    UsersModule,
     CommonModule,
   ],
   controllers: [],
