@@ -1,3 +1,4 @@
+import { JwtService } from './../jwt/jwt.service';
 import { LoginInput } from './dtos/login.dto';
 import { CreateAccountInput } from './dtos/create-account.dto';
 import { User } from './entities/user.entity';
@@ -9,6 +10,7 @@ import { Injectable } from '@nestjs/common';
 export class UserService {
   constructor(
     @InjectRepository(User) private readonly users: Repository<User>,
+    private readonly JwtService: JwtService,
   ) {}
 
   //creating account logic
@@ -46,9 +48,10 @@ export class UserService {
           error: "Wrong password"
         }
       }
+      const token = this.JwtService.sign(user.id);
       return{
         ok: true,
-        token: "lalala"
+        token,
       }
     }catch(error){
       return{
