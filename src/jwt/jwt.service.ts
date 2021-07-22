@@ -10,6 +10,9 @@ export class JwtService {
     //private readonly configService: ConfigService = works the same
   ) {}
   sign(userId: number): string{
-    return jwt.sign({id: userId}, this.options.privateKey)
+    return jwt.sign({id: userId}, this.options.privateKey);
+  }
+  verify(token:string){
+    return jwt.verify(token, this.options.privateKey);
   }
 }
