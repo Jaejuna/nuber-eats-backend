@@ -8,6 +8,7 @@ import {TypeOrmModule} from '@nestjs/typeorm';
 import { ConfigModule } from '@nestjs/config';
 import { CommonModule } from './common/common.module';
 import { JwtModule } from './jwt/jwt.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -43,10 +44,10 @@ import { JwtModule } from './jwt/jwt.module';
       entities: [User]
     }),
     UsersModule,
-    CommonModule,
     JwtModule.forRoot({
       privateKey: process.env.PRIVATE_KEY,
     }),
+    AuthModule,
   ],
   controllers: [],
   providers: [],
