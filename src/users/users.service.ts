@@ -32,29 +32,32 @@ export class UserService {
   }
 
   //login logic
-  async login({email, password}: LoginInput): Promise<{ ok: boolean; error?: string; token?: string; }>{
-    try{
-      const user = await this.users.findOne({email}); 
-      if(!user){
-        return{
+  async login({
+    email,
+    password,
+  }: LoginInput): Promise<{ ok: boolean; error?: string; token?: string }> {
+    try {
+      const user = await this.users.findOne({ email });
+      if (!user) {
+        return {
           ok: false,
-          error: "User not found",
+          error: 'User not found',
         };
       }
-      const passwordCorrect = await user.CheckPassword(password)
-      if(!passwordCorrect){
-        return{
+      const passwordCorrect = await user.CheckPassword(password);
+      if (!passwordCorrect) {
+        return {
           ok: false,
-          error: "Wrong password"
-        }
+          error: 'Wrong password',
+        };
       }
       const token = this.JwtService.sign(user.id);
-      return{
+      return {
         ok: true,
         token,
-      }
-    }catch(error){
-      return{
+      };
+    } catch (error) {
+      return {
         ok: false,
         error,
       };
